@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block cssFiles %}
+<link rel='stylesheet' href= "{% static "StravaChallengesApp/y5kResultsPage.css" %}">
+{% endblock %}
+
+{% block content %}
+
+<h1>y5k - ranking uczestników</h1>
+
+
+<br>
+<div>
+    <canvas id="myChart"></canvas>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <script id='graph'>
+    const ctx = document.getElementById('myChart');
+    Chart.defaults.font.size = 20;
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: {{athleteList|safe}},
+        datasets: [{
+          barPercentage: 0.5,
+          categoryPercentage: 0.9,
+          backgroundColor: {{colorsList|safe}},
+          label: 'ile przebytych km od początku roku',
+          data: {{athletesDistance|safe}},
+          borderWidth: 5,
+          borderRadius: 10,
+          borderColor: ['darkorange']
+        }]
+      },
+      options: {
+        responsive: true ,
+        indexAxis: 'y',
+        scales: {
+          y: {
+            beginAtZero: true,
+            stepSize: 1,
+            ticks: {
+              padding: 20,
+            }
+          },
+          x: {
+            beginAtZero: true,
+            suggestedMax: 5000,
+          }
+        }
+      }
+    });
+  </script>
+
+  <br>
+  <br>
+  <h1 id="details">y5k - wyniki szczegółowe</h1>
+  <br>
+<table id="table">
+  <thead>
+      <tr>
+          <th>Imię</th>
+          <th>Nazwisko</th>
+          <th>Suma km</th>
+          <th>Rower</th>
+          <th>Spacer</th>
+          <th>Bieganie</th>
+          <th>Pływanie</th>
+          <th>Narty</th>
+          <th>Stan na</th>
+      </tr>
+  </thead>
+  <tbody>
+      {% for athlete in athletes %}
+          <tr>
+              <td>{{ athlete.firstname }}</td>
+              <td>{{ athlete.lastname }}</td>
+              <td>{{ athlete.total_ytd_distance }}</td>
+              <td>{{ athlete.ride_ytd_distance }}</td>
+              <td>{{ athlete.walk_ytd_distance }}</td>
+              <td>{{ athlete.run_ytd_distance }}</td>
+              <td>{{ athlete.swim_ytd_distance }}</td>
+              <td>{{ athlete.ski_ytd_distance }}</td>
+              <td>{{ athlete.last_modified }}</td>
+          </tr>
+      {% endfor %}
+  </tbody>
+</table>
+  
+{% endblock content %}

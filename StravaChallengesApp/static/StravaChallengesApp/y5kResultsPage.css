@@ -1,0 +1,19 @@
+h1 {
+    text-align: center;
+    font-size: 2rem;
+}
+
+table {
+    font-size: 1.3rem;
+    width: 100%;
+
+}
+
+th, td {
+    padding: 10px;
+}
+
+#details {
+    background-color: orange;
+}
+
