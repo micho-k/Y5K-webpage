@@ -1,11 +1,6 @@
 from django.contrib import admin
 from .models import Athlete, Activity
 
-# Register your models here.
-# login: micha
-# email: michal.kor77@gmail.com
-# pswd: Pierd2000
-
 
 
 class AtheteAdmin(admin.ModelAdmin):
